@@ -1,0 +1,33 @@
+.container_sing_up{
+  display: flex;
+  flex-direction: column;
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+input{
+  margin: 2%;
+  padding: 1%;
+}
+
+select{
+  margin: 2%;
+  padding: 1%;
+}
+
+h3{
+  margin-left: 2%;
+}
+
+h2{
+  margin: 2%;
+}
+
+button{
+  padding: 2%;
+  margin: 2%;
+  border: none;
+  background-color: #41b5e6;
+  color: white;
+}
+

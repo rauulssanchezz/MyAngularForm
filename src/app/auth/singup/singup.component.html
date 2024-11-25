@@ -1,1 +1,12 @@
-<p>singup works!</p>
+<div class="container_sing_up">
+  <h2>Sing Up</h2>
+  <input class="sing_up_input" [(ngModel)]="name" type="text" placeholder="Name">
+  <input class="sing_up_input" [(ngModel)]="gmail" placeholder="Gmail">
+  <input class="sing_up_input" [(ngModel)]="password" placeholder="Password">
+  <input class="sing_up_input" [(ngModel)]="country" placeholder="Country">
+  <input class="sing_up_select" [(ngModel)]="city" placeholder="City">
+  <input class="sing_up_input" [(ngModel)]="postalCode" placeholder="Postal Code">
+  <input class="sing_up_input" [(ngModel)]="street" placeholder="Street">
+  <input class="sing_up_input" [(ngModel)]="houseNumber" placeholder="House number">
+  <button (click)="saveFormValues()">SING UP</button>
+</div>

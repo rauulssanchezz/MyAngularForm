@@ -10,13 +10,13 @@
 }
 
 .search-box{
-  width: 30%;
+  width: 40%;
   border-bottom: 5px solid;
   border-color: #41b5e6;
 }
 
 .search{
-  width: 95%;
+  width: 100%;
   outline: none;
   border: none;
 }
