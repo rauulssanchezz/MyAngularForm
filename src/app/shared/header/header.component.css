@@ -29,12 +29,23 @@
   height: 30px;
 }
 
-#user{
+.user{
   height: 30px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.user.clicked{
+  transform: scale(0.9);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 #wish-list{
   height: 30px;
   margin-right: 1%;
   margin-left: 1%;
+}
+
+h1{
+  cursor: pointer;
 }
