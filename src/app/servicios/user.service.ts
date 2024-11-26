@@ -53,7 +53,7 @@ export class UserService {
 
   private _apiUrl: string = 'http://localhost:3000/api/users';
   private usersSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  private user: string = '';
+  private user: User = new User(0,'','','');
 
   constructor(private _http: HttpClient) { }
 
@@ -88,15 +88,23 @@ export class UserService {
     const credentials = {gmail, password};
     const params = new URLSearchParams(credentials as Record<string, string>).toString();
 
-    console.log('params: ',params);
-
      this._http.get(`${this._apiUrl}/login?${params}`).subscribe(
         (res) => {
-          console.log('Usuario: ',res);
+          this.user = res as User;
+          console.log('Usuario: ',this.user);
         },
         (err) => {
           console.log('Error en la obtención del usuario: ',err);
         }
       );
+  }
+
+
+  getUser():User{
+    return this.user;
+  }
+
+  setUser(user:User):void{
+    this.user = user;
   }
 }
