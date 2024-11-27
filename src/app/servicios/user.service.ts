@@ -55,9 +55,14 @@ export class UserService {
   private usersSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   user: User | null = null;
-  private loggedIn: boolean = false;
+  private loggedIn: boolean = JSON.parse(localStorage.getItem('loggedIn') || 'false');
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient) {
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
+    if(user != '' && user != null && user != 'null'){
+    this.currentUserSubject.next(user);
+    }
+  }
 
   createUser(name:string,gmail:string,password:string):Observable<any>{
     const newUser = {
@@ -90,6 +95,10 @@ export class UserService {
     const credentials = {gmail, password};
     const params = new URLSearchParams(credentials as Record<string, string>).toString();
 
+    this.loggedIn = true;
+    localStorage.setItem('loggedIn', JSON.stringify({loggedIn: this.loggedIn}));
+    localStorage.setItem('user', JSON.stringify({user: this.user}));
+
     return this._http.get<User>(`${this._apiUrl}/login?${params}`).pipe(
       tap((res) => this.currentUserSubject.next(res))
     );
@@ -100,12 +109,20 @@ export class UserService {
     return this.currentUserSubject.asObservable();
   }
 
+  setUser(user: User | null):void{
+    this.currentUserSubject.next(user);
+  }
+
   getLoggedIn():boolean{
     return this.loggedIn;
   }
 
   setLoggedIn(loggedIn:boolean):void{
     this.loggedIn = loggedIn;
+  }
+
+  setCurrentUser(user: User):void{
+    this.currentUserSubject.next(user);
   }
 
 }

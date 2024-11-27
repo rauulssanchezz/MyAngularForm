@@ -29,7 +29,9 @@ export class LoginComponent {
       }
     })
 
-    if(this.user){
+    console.log(this.user);
+
+    if(this.user != null){
       this._router.navigate(['']);
     }
 
