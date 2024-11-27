@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 
 export class User{
   id: number;
-  name: string;
+  user_name: string;
   gmail: string;
-  password: string;
+  user_password: string;
 
-  constructor(id:number,name:string,gmail:string,password:string){
+  constructor(id:number,user_name:string,gmail:string,user_password:string){
     this.id = id;
-    this.name = name;
+    this.user_name = user_name;
     this.gmail = gmail;
-    this.password = password;
+    this.user_password = user_password;
   }
 
   getId(){
@@ -21,7 +21,7 @@ export class User{
   }
 
   getName(){
-    return this.name;
+    return this.user_name;
   }
 
   getGmail(){
@@ -29,11 +29,11 @@ export class User{
   }
 
   getPassword(){
-    return  this.password;
+    return  this.user_password;
   }
 
   setName(newName: string){
-    this.name = newName;
+    this.user_name = newName;
   }
 
   setGmail(newGmail: string){
@@ -41,7 +41,7 @@ export class User{
   }
 
   setPassword(newPassword: string){
-    this.password = newPassword;
+    this.user_password = newPassword;
   }
 
 }
@@ -53,7 +53,9 @@ export class UserService {
 
   private _apiUrl: string = 'http://localhost:3000/api/users';
   private usersSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  private user: User = new User(0,'','','');
+  private currentUserSubject: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
+  user: User | null = null;
+  private loggedIn: boolean = false;
 
   constructor(private _http: HttpClient) { }
 
@@ -83,28 +85,27 @@ export class UserService {
     return this.usersSubject.asObservable();
   }
 
-  getUserByCredentials(gmail:string,password:string):void {
+  getUserByCredentials(gmail:string,password:string):Observable<User> {
 
     const credentials = {gmail, password};
     const params = new URLSearchParams(credentials as Record<string, string>).toString();
 
-     this._http.get(`${this._apiUrl}/login?${params}`).subscribe(
-        (res) => {
-          this.user = res as User;
-          console.log('Usuario: ',this.user);
-        },
-        (err) => {
-          console.log('Error en la obtención del usuario: ',err);
-        }
-      );
+    return this._http.get<User>(`${this._apiUrl}/login?${params}`).pipe(
+      tap((res) => this.currentUserSubject.next(res))
+    );
   }
 
 
-  getUser():User{
-    return this.user;
+  getUser():Observable<User | null>{
+    return this.currentUserSubject.asObservable();
   }
 
-  setUser(user:User):void{
-    this.user = user;
+  getLoggedIn():boolean{
+    return this.loggedIn;
   }
+
+  setLoggedIn(loggedIn:boolean):void{
+    this.loggedIn = loggedIn;
+  }
+
 }

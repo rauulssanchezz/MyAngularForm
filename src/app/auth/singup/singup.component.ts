@@ -86,10 +86,4 @@ export class SingupComponent {
       }
     );
   }
-
-  async getUsers(){
-
-      this._userService.getUserByCredentials(this.gmail, this.password);
-  }
-
 }

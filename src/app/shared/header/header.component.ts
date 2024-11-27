@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { UserService } from '../../servicios/user.service';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,6 @@ import { RouterModule } from '@angular/router';
 })
 export class HeaderComponent {
 
-
+  constructor(public userService: UserService) { }
 
 }

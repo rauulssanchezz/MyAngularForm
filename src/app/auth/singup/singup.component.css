@@ -1,8 +1,11 @@
 .container_sing_up{
-  display: flex;
-  flex-direction: column;
   margin-left: 30%;
   margin-right: 30%;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
 }
 
 input{

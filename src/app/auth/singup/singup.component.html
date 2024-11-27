@@ -1,20 +1,43 @@
 <div class="container_sing_up">
   <h2>Sing Up</h2>
-  <input id="sing_up_input" [(ngModel)]="name" type="text" placeholder="Name" [ngClass]="{'invalid': invalid[0]}" required>
-  <div *ngIf="invalid[0]" class="alert">
-    {{ errorMessages[0] }}
-  </div>
-  <input class="sing_up_input" [(ngModel)]="gmail" placeholder="Gmail" [ngClass]="{'invalid': invalid[1]}" required>
-  <div *ngIf="invalid[1]" class="alert">
-    {{ errorMessages[1] }}
-  </div>
-  <input class="sing_up_input" [(ngModel)]="password" placeholder="Password" [ngClass]="{'invalid': invalid[2]}" required>
-  <div *ngIf="invalid[2]" class="alert">
-    {{ errorMessages[2] }}
-  </div>
-  <input class="sing_up_input" [(ngModel)]="confirmPassword" placeholder="Confirm Password" [ngClass]="{'invalid': invalid[3]}" required>
-  <div *ngIf="invalid[3]" class="alert">
-    {{ errorMessages[3] }}
-  </div>
-  <button (click)="createUser()">SING UP</button>
+  <form (ngSubmit)="createUser()" #loginForm="ngForm">
+    <input id="sing_up_input"
+      [(ngModel)]="name"
+      type="text"
+      placeholder="Name"
+      [ngClass]="{'invalid': invalid[0]}"
+      required
+    >
+    <div *ngIf="invalid[0]" class="alert">
+      {{ errorMessages[0] }}
+    </div>
+    <input class="sing_up_input"
+      [(ngModel)]="gmail"
+      placeholder="Gmail"
+      [ngClass]="{'invalid': invalid[1]}"
+      required
+    >
+    <div *ngIf="invalid[1]" class="alert">
+      {{ errorMessages[1] }}
+    </div>
+    <input class="sing_up_input"
+      [(ngModel)]="password"
+      placeholder="Password"
+      [ngClass]="{'invalid': invalid[2]}"
+      required
+    >
+    <div *ngIf="invalid[2]" class="alert">
+      {{ errorMessages[2] }}
+    </div>
+    <input class="sing_up_input"
+      [(ngModel)]="confirmPassword"
+      placeholder="Confirm Password"
+      [ngClass]="{'invalid': invalid[3]}"
+      required
+    >
+    <div *ngIf="invalid[3]" class="alert">
+      {{ errorMessages[3] }}
+    </div>
+    <button type="submit">SING UP</button>
+  </form>
 </div>
