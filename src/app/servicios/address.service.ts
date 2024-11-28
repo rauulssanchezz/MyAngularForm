@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 export class Address{
   id:number;
@@ -28,7 +29,6 @@ export class Address{
 export class AddressService {
 
   private apiUrl: string = 'http://localhost:3000/api/address';
-  private addressSubject: BehaviorSubject<Address[]> = new BehaviorSubject<Address[]>([]);
   address: Address[] = [];
 
   constructor(private _httpClient: HttpClient) { }
@@ -44,5 +44,23 @@ export class AddressService {
     }
 
     return this._httpClient.post(this.apiUrl,newAddress);
+  }
+
+  loadAddresses(user_id: number):Observable<Address[]>{
+
+    return this._httpClient.get(`${this.apiUrl}/${user_id}}`).pipe(
+      map((res: any) => {
+        return res.map((item: any) => ({
+          id: item.id,
+          userId: item.user_id,
+          country: item.country,
+          city: item.city,
+          pc: item.pc,
+          street: item.street,
+          house: item.house
+        }));
+      })
+    );
+
   }
 }

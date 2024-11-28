@@ -1,6 +1,6 @@
-<div class="address-container">
+<div class="address-container" *ngIf="address; else noAddress">
   <div class="name-container">
-    <p>nombre</p>
+    <p>{{address.street}}, {{address.house}}, {{address.pc}}, {{address.city}}</p>
     <img>
   </div>
   <div class="address-info">
@@ -8,3 +8,8 @@
     <img>
   </div>
 </div>
+
+<ng-template #noAddress>
+  <p>No address abalaible</p>
+</ng-template>
+

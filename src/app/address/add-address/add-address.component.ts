@@ -25,7 +25,8 @@ export class AddAddressComponent {
 
   ngOnInit(): void {
     this._user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.user_id =parseInt(this._user!.user_name);
+    this.user_id =this._user!.id;
+    console.log('Usuario: ',this.user_id);
   }
 
   onSubmit() {
