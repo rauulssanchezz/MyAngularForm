@@ -1,0 +1,27 @@
+
+<div class="add-address-form">
+  <h2>Add Address</h2>
+  <form (ngSubmit)="onSubmit()" #addressForm ="ngForm">
+    <div class="form-group">
+
+      <input type="text" [(ngModel)]="country" name="country" [ngClass]="{'invalid': invalid}" id="city" placeholder="Enter country">
+
+      <input type="text" [(ngModel)]="city" name="city" [ngClass]="{'invalid': invalid}" id="state" placeholder="Enter city">
+
+      <input type="text" [(ngModel)]="postal" name="postal" [ngClass]="{'invalid': invalid}" id="zip" placeholder="Enter zip">
+
+      <input type="text" [(ngModel)]="street" name="street" [ngClass]="{'invalid': invalid}" id="address" placeholder="Enter street">
+
+      <input type="text" [(ngModel)]="house" name="house" [ngClass]="{'invalid': invalid}" id="address" placeholder="Enter house number">
+
+      <div class="alert" *ngIf="invalid">
+        <p>
+          Please fill all the fields
+        </p>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+
+      </div>
+      </form>

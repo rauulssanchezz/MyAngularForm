@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
-import { UserService, User } from '../../servicios/user.service';
+import { User, AuthService } from '../../servicios/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 
@@ -19,7 +19,7 @@ export class LoginComponent {
   invalid: boolean = false;
   errorMessage: string = '';
 
-  constructor(private _userService: UserService, private _router: Router){}
+  constructor(private _userService: AuthService, private _router: Router){}
 
   ngOnInit(): void {
 
@@ -37,36 +37,30 @@ export class LoginComponent {
 
   }
 
-  async login(){
-
-    if(this.gmail == '' || this.password == ''){
+  login(): void {
+    if (!this.gmail || !this.password) {
       this.invalid = true;
       this.errorMessage = 'Todos los campos son obligatorios';
       return;
     }
 
-
-
-    this._userService.getUserByCredentials(this.gmail,this.password).subscribe(
-      (res) => {
-        this.user = res;
-        console.log(this.user);
-
-        if(this.user.id != 0){
+    this._userService.getUserByCredentials(this.gmail, this.password).subscribe(
+      (user) => {
+        if (user) {
           this._userService.setLoggedIn(true);
+          localStorage.setItem('loggedIn', 'true');
+          localStorage.setItem('user', JSON.stringify(user));
           this._router.navigate(['/user/profile']);
-        }else{
+        } else {
           this.invalid = true;
           this.errorMessage = 'Usuario o contraseña incorrectos';
         }
       },
-
       (err) => {
-        console.log(err);
+        console.error(err);
         this.invalid = true;
-        this.errorMessage = 'Usuario o contraseña incorrectos';
+        this.errorMessage = 'Ocurrió un error. Inténtalo más tarde.';
       }
     );
   }
-
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { UserService } from '../../servicios/user.service';
+import { AuthService } from '../../servicios/auth.service';
 import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
 
@@ -20,7 +20,7 @@ export class SingupComponent {
   errorMessages: string[] = [];
   invalid: boolean[] = [];
 
-  constructor(private _userService : UserService, private router: Router) {}
+  constructor(private _userService : AuthService, private router: Router) {}
 
   saveFormValues() {
     console.log({

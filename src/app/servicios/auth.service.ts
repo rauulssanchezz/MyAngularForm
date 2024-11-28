@@ -15,41 +15,12 @@ export class User{
     this.gmail = gmail;
     this.user_password = user_password;
   }
-
-  getId(){
-    return this.id;
-  }
-
-  getName(){
-    return this.user_name;
-  }
-
-  getGmail(){
-    return this.gmail;
-  }
-
-  getPassword(){
-    return  this.user_password;
-  }
-
-  setName(newName: string){
-    this.user_name = newName;
-  }
-
-  setGmail(newGmail: string){
-    this.gmail = newGmail;
-  }
-
-  setPassword(newPassword: string){
-    this.user_password = newPassword;
-  }
-
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class AuthService {
 
   private _apiUrl: string = 'http://localhost:3000/api/users';
   private usersSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
@@ -90,18 +61,9 @@ export class UserService {
     return this.usersSubject.asObservable();
   }
 
-  getUserByCredentials(gmail:string,password:string):Observable<User> {
-
-    const credentials = {gmail, password};
-    const params = new URLSearchParams(credentials as Record<string, string>).toString();
-
-    this.loggedIn = true;
-    localStorage.setItem('loggedIn', JSON.stringify({loggedIn: this.loggedIn}));
-    localStorage.setItem('user', JSON.stringify({user: this.user}));
-
-    return this._http.get<User>(`${this._apiUrl}/login?${params}`).pipe(
-      tap((res) => this.currentUserSubject.next(res))
-    );
+  getUserByCredentials(gmail: string, password: string): Observable<User | null> {
+    const params = { gmail, password };
+    return this._http.get<User | null>(`${this._apiUrl}/login`, { params });
   }
 
 
