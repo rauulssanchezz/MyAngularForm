@@ -22,17 +22,19 @@ export class AddressComponent {
 
   ngOnInit(): void {
     this._user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.user_id =parseInt(this._user!.user_name);
-    this.loadAddresses();
+    console.log('Usuario: ',this._user);
+    console.log('Usuario id: ',this._user!.id);
+    this.user_id =this._user!.id;
+    this.loadAddresses(this.user_id);
   }
 
   addAddress(){
     this.router.navigate(['profile/add-address']);
   }
 
-  loadAddresses(){
+  loadAddresses(user_id: number){
 
-    this._addressService.loadAddresses(this.user_id!).subscribe({
+    this._addressService.loadAddresses(user_id!).subscribe({
       next: (addresses) => {
         this.addresses = addresses;
         console.log('Direcciones cargadas: ',this.addresses);

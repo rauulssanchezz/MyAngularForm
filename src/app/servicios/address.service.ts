@@ -48,7 +48,9 @@ export class AddressService {
 
   loadAddresses(user_id: number):Observable<Address[]>{
 
-    return this._httpClient.get(`${this.apiUrl}/${user_id}}`).pipe(
+    console.log('loadAddresses: ',user_id);
+
+    return this._httpClient.get(`${this.apiUrl}/${user_id}`).pipe(
       map((res: any) => {
         return res.map((item: any) => ({
           id: item.id,

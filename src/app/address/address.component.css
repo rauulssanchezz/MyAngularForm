@@ -14,3 +14,10 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.address-view{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3%;
+  overflow-x: auto;
+}

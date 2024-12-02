@@ -10,7 +10,8 @@ import { NgIf } from '@angular/common';
   styleUrl: './address-view.component.css'
 })
 export class AddressViewComponent {
-  @Input() address: Address | null = null;
+  @Input()
+  public address: Address | null = null;
 
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
