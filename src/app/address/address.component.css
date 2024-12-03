@@ -19,5 +19,5 @@
   display: flex;
   justify-content: space-between;
   margin-top: 3%;
-  overflow-x: auto;
+  flex-wrap: wrap;
 }

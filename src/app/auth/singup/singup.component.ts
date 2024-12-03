@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../servicios/auth.service';
+import { AuthService, User } from '../../servicios/auth.service';
 import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
 
@@ -30,6 +30,21 @@ export class SingupComponent {
     });
   }
 
+  private userExists(gmail: string): boolean{
+
+    this._userService.userExists(gmail).subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+        return;
+      });
+
+      return true;
+  }
+
+
   async createUser(){
 
     this.invalid = [false,false,false,false];
@@ -46,11 +61,14 @@ export class SingupComponent {
 
     if(this.gmail == ''){
       this.invalid[1] = true;
-
+      this.errorMessages[1] = 'El campo gmail no puede estar vacío'
     }else if(!this.gmail.includes('@gmail.com')){
       this.invalid[1] = true;
       this.errorMessages[1] = 'No es un formato de correo válido';
 
+    }else if(this.userExists(this.gmail)){
+      this.invalid[1] = true;
+      this.errorMessages[1] = 'El correo ya está registrado';
     }
 
     if(this.password == ''){
@@ -59,14 +77,7 @@ export class SingupComponent {
     }else if(this.password.length < 5){
       this.errorMessages[2] = 'La contraseña debe tener al menos 8 caracteres';
       this.invalid[2] = true;
-    }
-
-    if(this.confirmPassword == ''){
-      this.invalid[3] = true;
-
-    }
-
-    if(this.password != this.confirmPassword){
+    }else if(this.password != this.confirmPassword){
       this.errorMessages[2] = 'Las contraseñas no coinciden';
       this.errorMessages[3] = 'Las contraseñas no coinciden';
       this.invalid[3] = true;

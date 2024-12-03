@@ -20,3 +20,12 @@ app-address{
   width: 100%;
   padding: 2%;
 }
+
+button{
+  padding: 2%;
+  margin: 5%;
+  border: none;
+  background-color: #41b5e6;
+  color: white;
+  width: 200px;
+}

@@ -7,10 +7,10 @@ export class Address{
   id:number;
   userId: number;
   country: string;
-  house: number;
+  house: number | null;
   city: string;
   street: string;
-  pc: number;
+  pc: number | null;
 
   constructor(id: number,userId: number, country: string, city: string, pc: number, street: string, house: number){
     this.id = id;
@@ -33,7 +33,7 @@ export class AddressService {
 
   constructor(private _httpClient: HttpClient) { }
 
-  createAddres(user_id: number, country: string, city: string, pc: number, street: string, house: number){
+  createAddres(user_id: number, country: string, city: string, pc: number | null, street: string, house: number | null){
     const newAddress = {
       user_id: user_id,
       country: country,

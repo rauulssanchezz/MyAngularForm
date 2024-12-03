@@ -32,7 +32,7 @@ export class LoginComponent {
     console.log(this.user);
 
     if(this.user != null){
-      this._router.navigate(['']);
+      this._router.navigate(['user/profile']);
     }
 
   }

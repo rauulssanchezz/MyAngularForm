@@ -57,6 +57,10 @@ export class AuthService {
     );
   }
 
+  userExists(gmail: string){
+    return this._http.get(`${this._apiUrl}/gmail/${gmail}`);
+  }
+
   getUsersSubject():Observable<User[]>{
     return this.usersSubject.asObservable();
   }
