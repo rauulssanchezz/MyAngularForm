@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService, User } from '../../servicios/auth.service';
 import { Router } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
+import { catchError, map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-singup',
@@ -30,19 +31,19 @@ export class SingupComponent {
     });
   }
 
-  private userExists(gmail: string): boolean{
+  private userExists(gmail: string): Observable<boolean> {
+    return this._userService.userExists(gmail).pipe(
+        map(() => true),
+        catchError((error) => {
+            if (error.status === 404) {
+                return of(false);
+            }
+            console.error('Error verificando usuario:', error);
+            return of(false);
+        })
+    );
+}
 
-    this._userService.userExists(gmail).subscribe(
-      res => {
-        console.log(res);
-      },
-      err => {
-        console.log(err);
-        return;
-      });
-
-      return true;
-  }
 
 
   async createUser(){
@@ -55,6 +56,14 @@ export class SingupComponent {
       'El campo confirmar password no puede estar vacío'
     ];
 
+    this.userExists(this.gmail).subscribe((exists: boolean) => {
+      if (exists) {
+          this.invalid[1] = true;
+          this.errorMessages[1] = 'El correo ya está registrado';
+      } else {
+      }
+  });
+
     if(this.name == ''){
       this.invalid[0] = true;
     }
@@ -66,9 +75,6 @@ export class SingupComponent {
       this.invalid[1] = true;
       this.errorMessages[1] = 'No es un formato de correo válido';
 
-    }else if(this.userExists(this.gmail)){
-      this.invalid[1] = true;
-      this.errorMessages[1] = 'El correo ya está registrado';
     }
 
     if(this.password == ''){
