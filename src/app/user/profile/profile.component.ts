@@ -14,13 +14,5 @@ import { AddressComponent } from '../../address/address.component';
 })
 export class ProfileComponent {
 
-  constructor(private _userService: AuthService, private router: Router) {}
 
-  singOut(){
-    this._userService.setUser(null);
-    localStorage.setItem('user', '');
-    localStorage.setItem('loggedIn', 'false');
-    this._userService.setLoggedIn(false);
-    this.router.navigate(['']);
-  }
 }
