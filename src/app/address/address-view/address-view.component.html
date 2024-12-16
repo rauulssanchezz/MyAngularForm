@@ -1,13 +1,13 @@
-<div class="address-container" *ngIf="address; else noAddress">
-  <div class="name-container">
+<section class="address-container" *ngIf="address; else noAddress">
+  <article class="name-container">
     <p>{{address.street}}, {{address.house}}, {{address.pc}}, {{address.city}}</p>
     <img>
-  </div>
-  <div class="address-info">
+  </article>
+  <article class="address-info">
     <p>dir</p>
     <img>
-  </div>
-</div>
+  </article>
+</section>
 
 <ng-template #noAddress>
   <p>No address abalaible</p>

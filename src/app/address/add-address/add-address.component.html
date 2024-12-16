@@ -1,8 +1,8 @@
 
-<div class="add-address-form">
+<section class="add-address-form">
   <h2>Add Address</h2>
   <form (ngSubmit)="onSubmit()" #addressForm ="ngForm">
-    <div class="form-group">
+    <section class="form-group">
 
       <input type="text" [(ngModel)]="country" name="country" [ngClass]="{'invalid': invalid[0]}" required id="city" placeholder="Enter country">
       <div class="alert" *ngIf="invalid[0]">
@@ -30,7 +30,6 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
-
-
-      </div>
-      </form>
+    </section>
+  </form>
+</section>
